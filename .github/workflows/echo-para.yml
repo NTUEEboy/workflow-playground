@@ -1,0 +1,21 @@
+name: GitHub Actions Demo
+
+on:
+  workflow_dispatch:  
+    inputs:
+      branch:
+        description: 'The branch to run the automation on'
+        required: false
+        default: 'master'
+
+      machine:
+        descrition: 'The machine to run the automation on'
+        require: false
+        default: 'B550-01'
+
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ming
+    steps:
+      - name: echo the machine name
+        run: echo ${{ github.event.inputs.machine }}
