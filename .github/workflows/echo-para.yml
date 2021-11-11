@@ -13,4 +13,6 @@ jobs:
     runs-on: ming
     steps:
       - name: echo the machine name
-        run: echo ${{ github.event.inputs.machine }}
+        run: |
+          echo ${{ github.event.inputs.machine }}
+          echo $GITHUB_REF_NAME
