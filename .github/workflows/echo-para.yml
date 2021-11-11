@@ -15,4 +15,4 @@ jobs:
       - name: echo the machine name
         run: |
           echo ${{ github.event.inputs.machine }}
-          echo $GITHUB_REF_NAME
+          echo ${{ github.ref_name }}
