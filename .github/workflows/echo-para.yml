@@ -3,11 +3,6 @@ name: GitHub Actions Demo
 on:
   workflow_dispatch:  
     inputs:
-      branch:
-        description: 'The branch to run the automation on'
-        required: false
-        default: 'master'
-
       machine:
         descrition: 'The machine to run the automation on'
         require: false
