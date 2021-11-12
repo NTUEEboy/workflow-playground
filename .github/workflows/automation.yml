@@ -1,0 +1,32 @@
+name: Conditional check at runners
+
+on:
+  workflow_dispatch:  
+    inputs:
+      machine:
+        descrition: 'The machine to run the automation on'
+        require: false
+        default: 'all'
+
+  push:
+    branches:
+      - feature*
+
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ${{ (github.event_name == 'push' || github.event.inputs.machine == 'all') && matrix.runner || github.event.inputs.machine }}
+    strategy:
+      matrix:
+        runner:
+          [ming]
+    steps:
+      - name: Print result
+        run: echo "${{ (github.event_name == 'push' || github.event.inputs.machine == 'all') && matrix.runner || github.event.inputs.machine }}"
+
+      - name: Checkout this repo
+        uses: actions/checkout@v2
+        with:
+          repository: "NTUEEboy/workflow-playground"
+          token: ${{ secrets.PRIVATE_ACTIONS_ACCESS_TOKEN }}
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
