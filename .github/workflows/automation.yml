@@ -13,9 +13,12 @@ on:
       - feature*
       - master
 
+  schedule:
+    - cron: "0 12 * * *"
+
 jobs:
   Explore-GitHub-Actions:
-    runs-on: ${{ (github.event_name == 'push' || github.event.inputs.machine == 'all') && matrix.runner || github.event.inputs.machine }}
+    runs-on: ${{ ((github.event_name == 'push' || github.event_name == 'schedule') || github.event.inputs.machine == 'all') && matrix.runner || github.event.inputs.machine }}
     strategy:
       matrix:
         runner:
