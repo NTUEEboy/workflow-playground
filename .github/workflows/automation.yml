@@ -5,7 +5,7 @@ on:
     inputs:
       machine:
         descrition: 'The machine to run the automation on'
-        require: false
+        require: true
         default: 'all'
 
   push:
