@@ -23,8 +23,9 @@ jobs:
     steps:
       - name: Print result
         run: |
-          echo "${{ (github.event_name == 'push' || github.event.inputs.machine == 'all') && matrix.runner || github.event.inputs.machine }}"
-          echo "${{ github.ref_name }}"
+          echo "The machine is: ${{ (github.event_name == 'push' || github.event.inputs.machine == 'all') && matrix.runner || github.event.inputs.machine }}"
+          echo "The branch is: ${{ github.ref_name }}"
+          echo "The event is: ${{ github.event_name }}"
 
       - name: Checkout this repo
         uses: actions/checkout@v2
