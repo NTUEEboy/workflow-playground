@@ -21,7 +21,9 @@ jobs:
           [ming]
     steps:
       - name: Print result
-        run: echo "${{ (github.event_name == 'push' || github.event.inputs.machine == 'all') && matrix.runner || github.event.inputs.machine }}"
+        run: |
+          echo "${{ (github.event_name == 'push' || github.event.inputs.machine == 'all') && matrix.runner || github.event.inputs.machine }}"
+          echo "${{ github.ref_name }}"
 
       - name: Checkout this repo
         uses: actions/checkout@v2
