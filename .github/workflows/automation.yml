@@ -5,7 +5,7 @@ on:
     inputs:
       machine:
         type: choice
-        descrition: 'The machine to run the automation on'
+        description: 'The machine to run the automation on'
         options:
           - all
           - windows-latest
