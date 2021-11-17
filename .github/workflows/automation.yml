@@ -4,9 +4,13 @@ on:
   workflow_dispatch:  
     inputs:
       machine:
+        type: choice
         descrition: 'The machine to run the automation on'
-        required: true
-        default: 'all'
+        options:
+          - all
+          - windows-latest
+          - ubuntu-latest
+          - ming
 
   push:
     branches:
