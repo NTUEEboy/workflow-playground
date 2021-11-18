@@ -22,7 +22,7 @@ on:
 
 jobs:
   Explore-GitHub-Actions:
-    runs-on: ${{ matrix.runner }}
+    runs-on: windows-latest
     strategy:
       matrix:
         runner:
