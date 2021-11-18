@@ -22,7 +22,7 @@ on:
 
 jobs:
   Explore-GitHub-Actions:
-    runs-on: ${{ ((github.event_name == 'push' || github.event_name == 'schedule') || github.event.inputs.machine == 'all') && matrix.runner || github.event.inputs.machine }}
+    runs-on: windows-latest
     strategy:
       matrix:
         runner:
