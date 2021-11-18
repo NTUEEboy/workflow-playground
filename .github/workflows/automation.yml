@@ -45,7 +45,7 @@ jobs:
 
   job-run-on-one:
     if: ${{ github.event.inputs.machine != 'all' && github.event_name == 'workflow_dispatch' }}
-    runs-on: ${{ matrix.runner }}
+    runs-on: ${{ github.event.inputs.machine }}
     steps:
       - name: Print result
         run: |
