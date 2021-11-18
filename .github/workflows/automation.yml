@@ -26,7 +26,7 @@ jobs:
     strategy:
       matrix:
         runner:
-          [ming]
+          [ming,kiki]
     steps:
       - name: Print result
         run: |
