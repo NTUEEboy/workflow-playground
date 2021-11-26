@@ -21,38 +21,27 @@ on:
     - cron: "0 12 * * *"
 
 jobs:
-  job-run-on-all:
-    if: ${{ github.event.inputs.machine == 'all' || github.event_name == 'push' || github.event_name == 'schedule' }}
+  job-check:
+    runs-on: ubuntu-latest
+    outputs:
+      runner: ${{ (github.event.inputs.machine == 'all' || github.event_name == 'push' || github.event_name == 'schedule') && steps.set-runners.outputs.runner || steps.set-runner.outputs.runner }}
+    steps:
+      - id: set-runners
+        run: echo "::set-output name=runner::{\"runner\":[\"windows-latest\", \"macos-latest\", \"ubuntu-latest\"]}"
+      - id: set-runner
+        run: echo "::set-output name=runner::{\"runner\":[\"${{ github.event.inputs.machine }}\"]}"
+  
+  job-echo:
+    needs: job-check
     runs-on: ${{ matrix.runner }}
     strategy:
-      matrix:
-        runner:
-          [ming,kiki]
+      matrix: ${{ fromJSON(needs.job-check.outputs.runner) }}
     steps:
       - name: Print result
         run: |
-          echo "The machine is: ${{ (github.event_name == 'push' || github.event.inputs.machine == 'all') && matrix.runner || github.event.inputs.machine }}"
+          echo "The machine is: ${{ matrix.runner }}"
           echo "The branch is: ${{ github.ref_name }}"
           echo "The event is: ${{ github.event_name }}"
-
-      - name: Checkout this repo
-        uses: actions/checkout@v2
-        with:
-          repository: "NTUEEboy/workflow-playground"
-          token: ${{ secrets.PRIVATE_ACTIONS_ACCESS_TOKEN }}
-          fetch-depth: 0
-          ref: ${{ github.ref_name }}
-
-  job-run-on-one:
-    if: ${{ github.event.inputs.machine != 'all' && github.event_name == 'workflow_dispatch' }}
-    runs-on: ${{ github.event.inputs.machine }}
-    steps:
-      - name: Print result
-        run: |
-          echo "The machine is: ${{ (github.event_name == 'push' || github.event.inputs.machine == 'all') && matrix.runner || github.event.inputs.machine }}"
-          echo "The branch is: ${{ github.ref_name }}"
-          echo "The event is: ${{ github.event_name }}"
-
       - name: Checkout this repo
         uses: actions/checkout@v2
         with:
