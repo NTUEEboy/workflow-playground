@@ -10,7 +10,7 @@ on:
 
 jobs:
   Explore-GitHub-Actions:
-    runs-on: ming
+    runs-on: windows-latest
     steps:
       - name: echo the machine name
         run: |
