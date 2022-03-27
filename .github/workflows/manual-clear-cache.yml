@@ -11,4 +11,4 @@ jobs:
         shell: cmd
     steps:
       - run: |
-          ssh ubuntu@store.apistage.nzxt.com bash 'sudo su && docker restart ProcessQueue'
+          ssh ubuntu@store.apistage.nzxt.com "sudo su; docker restart ProcessQueue;"
