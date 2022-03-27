@@ -10,6 +10,11 @@ jobs:
       run:
         shell: cmd
     steps:
-      - run: |
-          ssh ubuntu@store.apistage.nzxt.com 
-          ssh staging 'sudo su && docker restart ProcessQueue'
+      - name: ls -a via ssh
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            sudo su
+            docker restart ProcessQueue
+          host: ubuntu@store.apistage.nzxt.com
+          user: root
